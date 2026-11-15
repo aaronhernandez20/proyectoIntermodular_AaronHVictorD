@@ -1,0 +1,49 @@
+# ===== Java / Maven / Gradle (backend) =====
+target/
+build/
+*.class
+*.jar
+!**/gradle/wrapper/gradle-wrapper.jar
+.gradle/
+hs_err_pid*
+
+# ===== Android (android-app) =====
+android-app/.gradle/
+android-app/build/
+android-app/app/build/
+android-app/local.properties
+android-app/captures/
+android-app/.cxx/
+*.apk
+*.aab
+!docs/**/*.apk
+
+# ===== Node / Angular / Ionic (desktop-client) =====
+node_modules/
+dist/
+www/
+.angular/
+out/
+npm-debug.log*
+
+# ===== IDEs =====
+.idea/
+*.iml
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ===== Secretos y configuración local (NUNCA subir) =====
+.env
+.env.*
+!.env.example
+**/application-local.properties
+**/application-local.yml
+*.pem
+*.key
+
+# ===== Logs e informes generados =====
+logs/
+*.log
+reports/output/
