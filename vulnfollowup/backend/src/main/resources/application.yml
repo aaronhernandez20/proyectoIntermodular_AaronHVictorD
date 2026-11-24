@@ -1,0 +1,50 @@
+# Configuración externalizada: todo lo sensible llega por variables de entorno
+# (ver .env.example). Los valores por defecto son SOLO para desarrollo local.
+server:
+  port: ${SERVER_PORT:8080}
+  compression:
+    enabled: true            # gzip (mejora medible para Sostenibilidad)
+    min-response-size: 1024
+
+spring:
+  application:
+    name: vulnfollowup-api
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/vulnfollowup}
+    username: ${DB_USER:vfu}
+    password: ${DB_PASSWORD:vfu_dev_only}
+  jpa:
+    hibernate:
+      ddl-auto: validate     # el esquema lo crea Flyway, Hibernate solo comprueba
+    open-in-view: false
+    properties:
+      hibernate.format_sql: true
+  flyway:
+    enabled: true
+
+vulnfollowup:
+  security:
+    # Clave para firmar los JWT (mínimo 32 caracteres). Si no se define, se genera
+    # una aleatoria al arrancar (los tokens dejan de valer al reiniciar).
+    jwt-secret: ${JWT_SECRET:}
+    jwt-expiration-minutes: ${JWT_EXPIRATION_MINUTES:120}
+  cors:
+    # Web Angular (4200), Ionic (8100). Separadas por comas.
+    allowed-origins: ${CORS_ORIGINS:http://localhost:4200,http://localhost:8100}
+  data:
+    # CU1: ficheros iniciales. Solo se cargan si la tabla está vacía.
+    assets-file: ${ASSETS_FILE:../data/assets.json}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.vulnfollowup: INFO

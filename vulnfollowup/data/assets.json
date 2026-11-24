@@ -1,0 +1,72 @@
+[
+  {
+    "name": "API de pagos",
+    "type": "API",
+    "owner": "Equipo Pagos",
+    "environment": "PRODUCTION",
+    "exposure": "INTERNET"
+  },
+  {
+    "name": "Portal web de clientes",
+    "type": "WEB_APP",
+    "owner": "Equipo Frontend",
+    "environment": "PRODUCTION",
+    "exposure": "INTERNET"
+  },
+  {
+    "name": "App móvil banca",
+    "type": "MOBILE_APP",
+    "owner": "Equipo Móvil",
+    "environment": "PRODUCTION",
+    "exposure": "INTERNET"
+  },
+  {
+    "name": "Servidor de aplicaciones Tomcat",
+    "type": "SERVER",
+    "owner": "Equipo Sistemas",
+    "environment": "PRODUCTION",
+    "exposure": "INTERNAL"
+  },
+  {
+    "name": "Base de datos de clientes",
+    "type": "DATABASE",
+    "owner": "Equipo Datos",
+    "environment": "PRODUCTION",
+    "exposure": "INTERNAL"
+  },
+  {
+    "name": "Servidor de correo",
+    "type": "SERVER",
+    "owner": "Equipo Sistemas",
+    "environment": "PRODUCTION",
+    "exposure": "INTERNET"
+  },
+  {
+    "name": "VPN corporativa",
+    "type": "NETWORK",
+    "owner": "Equipo Redes",
+    "environment": "PRODUCTION",
+    "exposure": "INTERNET"
+  },
+  {
+    "name": "Servicio de logs centralizados",
+    "type": "SERVER",
+    "owner": "Equipo Seguridad",
+    "environment": "PRODUCTION",
+    "exposure": "INTERNAL"
+  },
+  {
+    "name": "API de pagos (preproducción)",
+    "type": "API",
+    "owner": "Equipo Pagos",
+    "environment": "STAGING",
+    "exposure": "INTERNAL"
+  },
+  {
+    "name": "Entorno de pruebas QA",
+    "type": "WEB_APP",
+    "owner": "Equipo QA",
+    "environment": "TEST",
+    "exposure": "INTERNAL"
+  }
+]
