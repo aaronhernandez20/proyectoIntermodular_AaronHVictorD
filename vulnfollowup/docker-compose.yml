@@ -1,0 +1,44 @@
+# VulnFollowUp - entorno completo con un solo comando:
+#   cp .env.example .env      (y cambia los valores)
+#   docker compose up --build
+# API: http://localhost:8080  ·  Swagger: http://localhost:8080/swagger-ui.html
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: vfu-db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-vulnfollowup}
+      POSTGRES_USER: ${DB_USER:-vfu}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Define DB_PASSWORD en el fichero .env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - vfu-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-vfu} -d ${DB_NAME:-vulnfollowup}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: vfu-backend
+    depends_on:
+      db:
+        condition: service_healthy   # no arranca hasta que PostgreSQL acepta conexiones
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/${DB_NAME:-vulnfollowup}
+      DB_USER: ${DB_USER:-vfu}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?Define JWT_SECRET en el fichero .env (32+ caracteres)}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:4200,http://localhost:8100}
+      ASSETS_FILE: /app/data/assets.json
+    volumes:
+      - ./data:/app/data:ro          # ficheros iniciales de CU1 (solo lectura)
+    ports:
+      - "8080:8080"
+
+  # La web de Aarón (Nginx con la SPA) se añadirá aquí como servicio "web".
+
+volumes:
+  vfu-db-data:
