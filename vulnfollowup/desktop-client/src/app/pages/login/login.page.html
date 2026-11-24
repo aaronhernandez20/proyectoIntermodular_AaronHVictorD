@@ -1,0 +1,80 @@
+<ion-content class="login-bg">
+  <main class="login-wrapper">
+    <ion-button
+      class="lang-btn"
+      fill="clear"
+      color="light"
+      (click)="lang.toggle()"
+      [attr.aria-label]="'common.changeLanguage' | translate"
+    >
+      <ion-icon slot="start" name="language-outline" aria-hidden="true"></ion-icon>
+      {{ lang.current() === 'es' ? 'EN' : 'ES' }}
+    </ion-button>
+
+    <ion-card class="login-card">
+      <ion-card-header>
+        <div class="brand">
+          <ion-icon name="shield-checkmark-outline" aria-hidden="true"></ion-icon>
+          <span>VulnFollowUp</span>
+        </div>
+        <ion-card-title><h1>{{ 'login.title' | translate }}</h1></ion-card-title>
+        <ion-card-subtitle>{{ 'login.subtitle' | translate }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <ion-input
+            formControlName="username"
+            fill="outline"
+            labelPlacement="floating"
+            [label]="'login.username' | translate"
+            autocomplete="username"
+            aria-describedby="username-error"
+            [attr.aria-invalid]="showError('username')"
+          ></ion-input>
+          @if (showError('username')) {
+            <ion-note id="username-error" color="danger" class="field-error">{{ 'validation.required' | translate }}</ion-note>
+          }
+
+          <ion-input
+            formControlName="password"
+            type="password"
+            fill="outline"
+            labelPlacement="floating"
+            [label]="'login.password' | translate"
+            autocomplete="current-password"
+            aria-describedby="password-error"
+            [attr.aria-invalid]="showError('password')"
+          >
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+          @if (showError('password')) {
+            <ion-note id="password-error" color="danger" class="field-error">
+              {{
+                form.controls.password.hasError('minlength')
+                  ? ('validation.minLength' | translate: { min: 6 })
+                  : ('validation.required' | translate)
+              }}
+            </ion-note>
+          }
+
+          @if (errorKey(); as key) {
+            <ion-note color="danger" class="form-error" role="alert">{{ key | translate }}</ion-note>
+          }
+
+          <ion-button type="submit" expand="block" [disabled]="loading()">
+            @if (loading()) {
+              <ion-spinner name="crescent" aria-hidden="true"></ion-spinner>
+              <span class="sr-only">{{ 'common.loading' | translate }}</span>
+            } @else {
+              <ion-icon slot="start" name="log-in-outline" aria-hidden="true"></ion-icon>
+              {{ 'login.submit' | translate }}
+            }
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <p class="footer-note">{{ 'login.footer' | translate }}</p>
+  </main>
+</ion-content>

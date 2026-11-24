@@ -1,0 +1,71 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+ion-item {
+  --background: transparent;
+  --border-radius: 8px;
+  margin: 2px 8px;
+  font-weight: 500;
+}
+
+ion-item.active {
+  --background: var(--ion-color-primary-tint);
+  --color: var(--ion-color-primary-contrast);
+  --background-hover: var(--ion-color-primary-tint);
+
+  ion-icon {
+    color: var(--ion-color-primary-contrast);
+  }
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px 4px;
+
+  > ion-icon {
+    font-size: 2.2rem;
+    color: var(--ion-color-medium);
+  }
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.role-chip {
+  margin: 4px 0 0;
+  height: 24px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.role-admin {
+  --background: var(--vfu-navy);
+  --color: #fff;
+}
+.role-analyst {
+  --background: var(--ion-color-primary);
+  --color: #fff;
+}
+.role-viewer {
+  --background: var(--ion-color-medium);
+  --color: #fff;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px 16px;
+}
+
+ion-menu ion-list {
+  background: transparent;
+}
