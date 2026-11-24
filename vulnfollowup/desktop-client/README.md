@@ -2,7 +2,7 @@
 
 SPA for the ADMIN and ANALYST profiles. Created with the same template as `ionic start blank --type=angular-standalone`:
 **Ionic 9 + Angular 22 (Standalone components, Signals, Reactive Forms)**, Vitest for unit tests, ESLint and Capacitor.
-It consumes **only** the VulnFollowUp REST API (`docs/api/api-contract.md`); it never accesses the database.
+It consumes **only** the VulnFollowUp REST API (contract: `docs/api/README.md`); it never accesses the database.
 
 Author: Aarón Hernández Moreno.
 
@@ -10,7 +10,7 @@ Author: Aarón Hernández Moreno.
 
 - Node.js 22 or newer (`node -v`) and npm
 - Ionic CLI: `npm install -g @ionic/cli`
-- The backend running on `http://localhost:8080` (see the root README)
+- The backend running on `http://localhost:8080` (see the root README: `docker compose up --build`)
 
 ## Install and run
 
@@ -21,12 +21,13 @@ ionic serve          # http://localhost:8100
 ```
 
 The API URL is configured in `src/environments/environment.ts` (`apiUrl`).
+Test users: `admin / admin123`, `analyst / analyst123`, `viewer / viewer123` (synthetic, development only).
 The production build (`environment.prod.ts`) uses `/api`, which Nginx forwards to the backend container.
 
 ## Tests, lint and build
 
 ```bash
-npm test             # unit tests with Vitest (26 tests)
+npm test             # unit tests with Vitest (27 tests)
 npm run lint         # ESLint (angular-eslint)
 ionic build          # production build in www/
 ```
@@ -43,7 +44,7 @@ src/
 │   │   ├── interceptors/    auth.interceptor.ts (JWT), error.interceptor.ts (401/403/404/409/5xx)
 │   │   ├── services/        auth, notification (toasts), language (ES/EN)
 │   │   └── utils/           cvss.util.ts (version ↔ vector ↔ score ↔ severity)
-│   ├── models/              *.model.ts interfaces and enums aligned with the API contract
+│   ├── models/              *.model.ts interfaces and enums: same fields as the backend DTOs
 │   ├── components/          shell (side menu by role), page-placeholder
 │   └── pages/               login, dashboard, vulnerabilities, assets, providers, import, forbidden
 ├── assets/i18n/             es.json / en.json

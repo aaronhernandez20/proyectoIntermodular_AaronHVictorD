@@ -89,7 +89,7 @@ describe('CVSS utilities', () => {
         {
           cvssVersion: new FormControl(version),
           cvssVector: new FormControl(vector),
-          score: new FormControl(score),
+          cvssScore: new FormControl(score),
           severity: new FormControl(severity),
         },
         { validators: cvssGroupValidator() },

@@ -3,7 +3,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { LoginRequest, LoginResponse, Role, User } from '../../models';
+import { LoginRequest, LoginResponse, Role, ROLES, User } from '../../models';
 
 interface StoredSession {
   token: string;
@@ -13,6 +13,15 @@ interface StoredSession {
 }
 
 const STORAGE_KEY = 'vfu.session';
+
+/**
+ * The backend returns a list of roles (e.g. ["ANALYST"], or "ROLE_ANALYST" with Spring's prefix).
+ * The web keeps the most powerful one: ADMIN > ANALYST > VIEWER.
+ */
+export function mainRole(roles: string[]): Role | null {
+  const clean = roles.map((r) => r.replace(/^ROLE_/, '').toUpperCase());
+  return ROLES.find((r) => clean.includes(r)) ?? null;
+}
 
 /**
  * Keeps the session (JWT + user) in a signal.
@@ -32,13 +41,16 @@ export class AuthService {
   readonly canEdit = computed(() => this.hasRole('ADMIN', 'ANALYST'));
   readonly isAdmin = computed(() => this.hasRole('ADMIN'));
 
+  /** POST /api/auth/login */
   login(credentials: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, credentials).pipe(
       tap((res) => {
+        const role = mainRole(res.roles);
+        if (!role) throw new Error('The user has no known role');
         const stored: StoredSession = {
-          token: res.token,
-          user: res.user,
-          expiresAt: Date.now() + res.expiresIn * 1000,
+          token: res.accessToken,
+          user: { username: res.username, fullName: res.fullName, role },
+          expiresAt: Date.parse(res.expiresAt),
         };
         this.session.set(stored);
         this.save(stored);
@@ -60,7 +72,7 @@ export class AuthService {
   token(): string | null {
     const s = this.session();
     if (!s) return null;
-    if (Date.now() >= s.expiresAt) {
+    if (!(Date.now() < s.expiresAt)) {
       this.logout(false);
       return null;
     }

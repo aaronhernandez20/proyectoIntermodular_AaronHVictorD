@@ -86,7 +86,8 @@ export function validateCvss(input: CvssInput): CvssErrorKey[] {
 }
 
 /**
- * Validator for a FormGroup with the controls cvssVersion, cvssVector, score and severity.
+ * Validator for a FormGroup with the controls cvssVersion, cvssVector, cvssScore
+ * (and optionally severity; the API derives it from the score anyway).
  * Errors are returned as { cvss: ['versionMismatch', ...] }.
  */
 export function cvssGroupValidator(): ValidatorFn {
@@ -94,10 +95,11 @@ export function cvssGroupValidator(): ValidatorFn {
     const raw = group.value as {
       cvssVersion?: CvssVersion | null;
       cvssVector?: string | null;
-      score?: number | string | null;
+      cvssScore?: number | string | null;
       severity?: Severity | null;
     };
-    const score = raw.score === null || raw.score === undefined || raw.score === '' ? null : Number(raw.score);
+    const score =
+      raw.cvssScore === null || raw.cvssScore === undefined || raw.cvssScore === '' ? null : Number(raw.cvssScore);
     const errors = validateCvss({
       version: raw.cvssVersion ?? null,
       vector: raw.cvssVector ?? null,
