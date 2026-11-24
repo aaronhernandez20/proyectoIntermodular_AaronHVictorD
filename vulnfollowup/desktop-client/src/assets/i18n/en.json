@@ -1,0 +1,74 @@
+{
+  "common": {
+    "loading": "Loading…",
+    "logout": "Log out",
+    "changeLanguage": "Switch language to Spanish",
+    "skipToContent": "Skip to main content"
+  },
+  "login": {
+    "title": "Sign in",
+    "subtitle": "Vulnerability management and prioritisation",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Sign in",
+    "invalidCredentials": "Incorrect username or password.",
+    "footer": "Internal defensive tool · Synthetic data or public CVEs only"
+  },
+  "menu": {
+    "label": "Main menu",
+    "dashboard": "Dashboard",
+    "vulnerabilities": "Vulnerabilities",
+    "assets": "Assets",
+    "providers": "ICT providers",
+    "import": "Import JSON"
+  },
+  "roles": {
+    "ADMIN": "Administrator",
+    "ANALYST": "Analyst",
+    "VIEWER": "Viewer"
+  },
+  "severity": {
+    "NONE": "None",
+    "LOW": "Low",
+    "MEDIUM": "Medium",
+    "HIGH": "High",
+    "CRITICAL": "Critical"
+  },
+  "status": {
+    "OPEN": "Open",
+    "PENDING_REMEDIATION": "Pending remediation",
+    "RESOLVED": "Resolved",
+    "CLOSED": "Closed"
+  },
+  "validation": {
+    "required": "This field is required.",
+    "minLength": "It must be at least {{min}} characters long."
+  },
+  "cvss": {
+    "errors": {
+      "versionRequired": "Select the CVSS version (3.1 or 4.0).",
+      "vectorRequired": "Enter the Base vector.",
+      "versionMismatch": "The vector does not match the selected version (it must start with CVSS:{{version}}/).",
+      "vectorFormat": "The Base vector does not have the correct format for that version.",
+      "scoreRange": "The score must be between 0.0 and 10.0 with one decimal.",
+      "severityMismatch": "The severity does not match the score."
+    }
+  },
+  "errors": {
+    "network": "Cannot connect to the server. Check that the backend is running.",
+    "sessionExpired": "Your session has expired. Please sign in again.",
+    "forbidden": "You do not have permission to perform this action.",
+    "forbiddenTitle": "Access denied",
+    "notFound": "The requested resource does not exist.",
+    "conflict": "Another user has modified this record. Reload the data before saving.",
+    "server": "Server error. Please try again later."
+  },
+  "placeholder": {
+    "title": "Section under construction",
+    "dashboard": "This page will show the vulnerabilities by severity and status with charts and CSV export.",
+    "vulnerabilities": "This page will show the filtered list, the form with CVSS validation, the detail and the remediation.",
+    "assets": "This page will manage assets: create, edit, deactivate and view.",
+    "providers": "This page will show the ICT provider register and the pending vulnerabilities report per provider.",
+    "import": "This page will import the vulnerabilities JSON file and show the error report."
+  }
+}

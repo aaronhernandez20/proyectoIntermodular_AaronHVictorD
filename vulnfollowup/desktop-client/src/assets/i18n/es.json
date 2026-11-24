@@ -1,0 +1,74 @@
+{
+  "common": {
+    "loading": "Cargando…",
+    "logout": "Cerrar sesión",
+    "changeLanguage": "Cambiar idioma a inglés",
+    "skipToContent": "Saltar al contenido principal"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "subtitle": "Gestión y priorización de vulnerabilidades",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "submit": "Entrar",
+    "invalidCredentials": "Usuario o contraseña incorrectos.",
+    "footer": "Herramienta defensiva interna · Solo datos sintéticos o CVE públicos"
+  },
+  "menu": {
+    "label": "Menú principal",
+    "dashboard": "Panel de control",
+    "vulnerabilities": "Vulnerabilidades",
+    "assets": "Activos",
+    "providers": "Proveedores TIC",
+    "import": "Importar JSON"
+  },
+  "roles": {
+    "ADMIN": "Administrador",
+    "ANALYST": "Analista",
+    "VIEWER": "Consulta"
+  },
+  "severity": {
+    "NONE": "Ninguna",
+    "LOW": "Baja",
+    "MEDIUM": "Media",
+    "HIGH": "Alta",
+    "CRITICAL": "Crítica"
+  },
+  "status": {
+    "OPEN": "Abierta",
+    "PENDING_REMEDIATION": "Pendiente de remediación",
+    "RESOLVED": "Resuelta",
+    "CLOSED": "Cerrada"
+  },
+  "validation": {
+    "required": "Este campo es obligatorio.",
+    "minLength": "Debe tener al menos {{min}} caracteres."
+  },
+  "cvss": {
+    "errors": {
+      "versionRequired": "Indica la versión CVSS (3.1 o 4.0).",
+      "vectorRequired": "Indica el vector Base.",
+      "versionMismatch": "El vector no corresponde a la versión elegida (debe empezar por CVSS:{{version}}/).",
+      "vectorFormat": "El vector Base no tiene el formato correcto para esa versión.",
+      "scoreRange": "La puntuación debe estar entre 0,0 y 10,0 con un decimal.",
+      "severityMismatch": "La severidad no corresponde a la puntuación."
+    }
+  },
+  "errors": {
+    "network": "No se puede conectar con el servidor. Comprueba que el backend está arrancado.",
+    "sessionExpired": "Tu sesión ha caducado. Vuelve a iniciar sesión.",
+    "forbidden": "No tienes permiso para realizar esta acción.",
+    "forbiddenTitle": "Acceso denegado",
+    "notFound": "El recurso solicitado no existe.",
+    "conflict": "Otro usuario ha modificado este registro. Recarga los datos antes de guardar.",
+    "server": "Error del servidor. Inténtalo de nuevo más tarde."
+  },
+  "placeholder": {
+    "title": "Sección en construcción",
+    "dashboard": "Aquí irá el resumen de vulnerabilidades por severidad y estado con gráficos y exportación CSV.",
+    "vulnerabilities": "Aquí irá el listado con filtros, el alta con validación CVSS, el detalle y la remediación.",
+    "assets": "Aquí irá la gestión de activos: alta, edición, desactivación y consulta.",
+    "providers": "Aquí irá el registro de proveedores TIC y el informe de vulnerabilidades pendientes por proveedor.",
+    "import": "Aquí irá la importación del fichero JSON de vulnerabilidades con el informe de errores."
+  }
+}

@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-menu-button></ion-menu-button></ion-buttons>
+    <ion-title><h1 class="page-title">{{ titleKey() | translate }}</h1></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-content class="placeholder">
+      <ion-icon [name]="icon()" aria-hidden="true"></ion-icon>
+      <div>
+        <h2>{{ headingKey() | translate }}</h2>
+        <p>{{ descriptionKey() | translate }}</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ng-content></ng-content>
+</ion-content>
