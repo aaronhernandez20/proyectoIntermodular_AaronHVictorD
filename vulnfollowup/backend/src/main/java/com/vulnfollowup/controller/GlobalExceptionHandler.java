@@ -1,6 +1,8 @@
 package com.vulnfollowup.controller;
 
+import com.vulnfollowup.cvss.CvssValidationException;
 import org.slf4j.Logger;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -47,7 +49,23 @@ public class GlobalExceptionHandler {
         return body(HttpStatus.BAD_REQUEST, "Petición mal formada o con valores no permitidos");
     }
 
-    // Reglas de negocio incumplidas (p. ej. proveedor inexistente, CVSS incoherente) -> 400
+    // CVSS incoherente -> 400 con cada error por separado para mostrarlos en el formulario
+    @ExceptionHandler(CvssValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, Object> cvss(CvssValidationException ex) {
+        Map<String, Object> body = body(HttpStatus.BAD_REQUEST, "Valoración CVSS incoherente");
+        body.put("errors", ex.getErrors());
+        return body;
+    }
+
+    // Parámetro de consulta inválido (p. ej. ordenar por un campo que no existe)
+    @ExceptionHandler(PropertyReferenceException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, Object> badProperty(PropertyReferenceException ex) {
+        return body(HttpStatus.BAD_REQUEST, "Campo no válido: " + ex.getPropertyName());
+    }
+
+    // Reglas de negocio incumplidas (p. ej. transición de estado no permitida, activo inexistente) -> 400
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, Object> badRequest(IllegalArgumentException ex) {
