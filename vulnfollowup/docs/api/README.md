@@ -153,7 +153,7 @@ No body. Sets `status` to `INACTIVE`; assets are never deleted.
 
 ---
 
-## 4. Vulnerabilities 🔜
+## 4. Vulnerabilities ✅
 
 Enums:
 - `status`: `OPEN`, `PENDING_REMEDIATION`, `RESOLVED`, `CLOSED`
@@ -173,8 +173,10 @@ CVSS rules (validated by the API and also by the database):
 - Version `3.1` requires a vector starting with `CVSS:3.1/`; version `4.0` requires `CVSS:4.0/`.
 - The severity is **derived from the score** by the API. The client can show it in the form, but the API decides.
 
-### 🔜 `GET /api/vulnerabilities`
-Query params (all optional, combinable): `severity`, `status`, `assetId`, `assigneeId`, `minScore`, `maxScore`, `q` (text in code/title), `page` (0-based), `size` (default 25), `sort` (e.g. `cvssScore,desc`).
+### ✅ `GET /api/vulnerabilities`
+Query params (all optional, combinable): `severity`, `status`, `assetId`, `assigneeId`, `minScore`, `maxScore`, `q` (text in code/title), `page` (0-based), `size` (default 25, max 100), `sort` (default `cvssScore,desc`).
+
+Sortable fields: `cvssScore`, `publishedDate`, `targetDate`, `code`, `title`, `status`, `createdAt`, `updatedAt`. Any other field returns `400`.
 
 Response `200` (paginated):
 ```json
@@ -200,7 +202,7 @@ Response `200` (paginated):
 }
 ```
 
-### 🔜 `GET /api/vulnerabilities/{id}`
+### ✅ `GET /api/vulnerabilities/{id}`
 Full detail:
 ```json
 {
@@ -233,7 +235,7 @@ Full detail:
 }
 ```
 
-### 🔜 `POST /api/vulnerabilities` (ADMIN, ANALYST) — CU3
+### ✅ `POST /api/vulnerabilities` (ADMIN, ANALYST) — CU3
 ```json
 {
   "code": "VFU-0021",
@@ -247,12 +249,27 @@ Full detail:
   "references": []
 }
 ```
-It is created with `status: OPEN`. Returns `201`. Incoherent CVSS returns `400` with a clear message.
+It is created with `status: OPEN`. Returns `201`.
 
-### 🔜 `PUT /api/vulnerabilities/{id}` (ADMIN, ANALYST)
-Same body as POST plus `version`.
+Validation:
+- `code`: a CVE (`CVE-2021-44228`) or an internal id (`VFU-0001`). Duplicate code returns `409`.
+- `assetIds`: at least one; all must exist and be `ACTIVE`, otherwise `400`.
+- `publishedDate`: today or in the past.
 
-### 🔜 `PATCH /api/vulnerabilities/{id}/status` (ADMIN, ANALYST) — CU4
+Incoherent CVSS returns `400` with every problem listed in `errors`:
+```json
+{
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Valoración CVSS incoherente",
+  "errors": ["El vector es de la versión 3.1 pero se ha indicado la versión 4.0"]
+}
+```
+
+### ✅ `PUT /api/vulnerabilities/{id}` (ADMIN, ANALYST)
+Same body as POST plus `version` (required). If the CVSS data changes, a new entry is added to the assessment history. A `CLOSED` vulnerability cannot be edited (`400`).
+
+### ✅ `PATCH /api/vulnerabilities/{id}/status` (ADMIN, ANALYST) — CU4
 ```json
 {
   "status": "RESOLVED",
@@ -263,12 +280,36 @@ Same body as POST plus `version`.
   "version": 2
 }
 ```
-Allowed transitions: `OPEN → PENDING_REMEDIATION → RESOLVED → CLOSED`, and `RESOLVED → PENDING_REMEDIATION` (reopen). Any other transition returns `400`. Stale `version` returns `409`.
+Only `status` and `version` are required.
 
-### 🔜 `POST /api/vulnerabilities/{id}/assessment` (ADMIN, ANALYST)
+Business rules (all return `400` with a clear `message`):
+1. Allowed transitions: `OPEN → PENDING_REMEDIATION → RESOLVED → CLOSED`, and `RESOLVED → PENDING_REMEDIATION` (reopen). Keeping the same status is allowed (e.g. only change the assignee or add evidence). `CLOSED` is final: nothing can be changed.
+2. To move to `PENDING_REMEDIATION`, the vulnerability must have an assignee (already assigned, or sent in `assigneeId`).
+3. To move to `RESOLVED`, `evidence` is required.
+4. The assignee must be an enabled user with role `ADMIN` or `ANALYST` (see `GET /api/users/assignable`).
+
+`comment` and `evidence` are saved as a remediation comment. A stale `version` returns `409`.
+
+### ✅ `POST /api/vulnerabilities/{id}/assessment` (ADMIN, ANALYST)
 New CVSS assessment (the previous one is kept in the history):
 ```json
 { "cvssVersion": "4.0", "cvssVector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N", "cvssScore": 9.3 }
+```
+Returns the updated detail. The severity is recalculated.
+
+### ✅ `GET /api/vulnerabilities/{id}/assessments`
+CVSS assessment history, newest first:
+```json
+[
+  { "id": 2, "cvssVersion": "4.0", "cvssVector": "CVSS:4.0/...", "cvssScore": 9.3, "severity": "CRITICAL",
+    "assessedBy": "analyst", "assessedAt": "2026-11-26T18:00:00" }
+]
+```
+
+### ✅ `GET /api/users/assignable` (ADMIN, ANALYST)
+Users that can be assigned as responsible for a remediation (for the "Assign" dropdown):
+```json
+[ { "id": 2, "username": "analyst", "fullName": "Ana Analista", "roles": ["ANALYST"] } ]
 ```
 
 ---

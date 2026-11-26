@@ -19,6 +19,13 @@ spring:
     open-in-view: false
     properties:
       hibernate.format_sql: true
+      # Carga las colecciones LAZY (p. ej. los activos de cada vulnerabilidad del listado)
+      # en lotes de 50 con un "WHERE id IN (...)", en vez de una consulta por fila (N+1)
+      hibernate.default_batch_fetch_size: 50
+  data:
+    web:
+      pageable:
+        max-page-size: 100   # nadie puede pedir 1.000.000 de filas de golpe
   flyway:
     enabled: true
 
