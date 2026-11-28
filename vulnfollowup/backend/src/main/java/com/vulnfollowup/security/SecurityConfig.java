@@ -88,7 +88,8 @@ public class SecurityConfig {
     // Cadena de filtros: toda petición pasa por aquí antes de llegar al controlador
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                            JwtAuthenticationConverter jwtAuthenticationConverter) throws Exception {
+                                            JwtAuthenticationConverter jwtAuthenticationConverter,
+                                            JsonSecurityErrorHandler jsonErrors) throws Exception {
         http
                 // Sin sesión ni cookies no hay ataque CSRF posible
                 .csrf(csrf -> csrf.disable())
@@ -105,8 +106,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole(Role.ADMIN, Role.ANALYST, Role.VIEWER)
                         .requestMatchers("/api/**").hasAnyRole(Role.ADMIN, Role.ANALYST)
                         .anyRequest().authenticated())
-                // Sin token o token inválido/caducado -> 401
-                .oauth2ResourceServer(oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
+                // 401 (sin token / token inválido) y 403 (rol sin permiso) con el JSON de error común
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(jsonErrors).accessDeniedHandler(jsonErrors))
+                .oauth2ResourceServer(oauth -> oauth
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter))
+                        .authenticationEntryPoint(jsonErrors)
+                        .accessDeniedHandler(jsonErrors));
         return http.build();
     }
 

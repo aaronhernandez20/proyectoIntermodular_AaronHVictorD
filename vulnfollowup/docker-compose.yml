@@ -33,6 +33,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:?Define JWT_SECRET en el fichero .env (32+ caracteres)}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:4200,http://localhost:8100}
       ASSETS_FILE: /app/data/assets.json
+      VULNERABILITIES_FILE: /app/data/vulnerabilities_ok.json
     volumes:
       - ./data:/app/data:ro          # ficheros iniciales de CU1 (solo lectura)
     ports:

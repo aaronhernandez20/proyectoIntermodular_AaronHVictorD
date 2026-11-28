@@ -3,7 +3,11 @@ package com.vulnfollowup.bootstrap;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vulnfollowup.dto.AssetDTOs.AssetRequest;
+import com.vulnfollowup.importer.ImportValidationException;
+import com.vulnfollowup.importer.VulnerabilityImportRecord;
+import com.vulnfollowup.importer.VulnerabilityImporter;
 import com.vulnfollowup.repository.AssetRepository;
+import com.vulnfollowup.repository.VulnerabilityRepository;
 import com.vulnfollowup.service.AssetService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
@@ -13,7 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -40,20 +45,63 @@ public class InitialDataLoader implements ApplicationRunner {
     private final ObjectMapper objectMapper;
     private final Validator validator;
     private final Path assetsFile;
+    private final VulnerabilityRepository vulnerabilityRepository;
+    private final VulnerabilityImporter vulnerabilityImporter;
+    private final Path vulnerabilitiesFile;
+    // Transacción programática: @Transactional no funciona en métodos llamados desde la
+    // propia clase (la llamada no pasa por el proxy de Spring), así que la abrimos a mano.
+    private final TransactionTemplate transaction;
 
     public InitialDataLoader(AssetRepository assetRepository, AssetService assetService,
                              ObjectMapper objectMapper, Validator validator,
-                             @Value("${vulnfollowup.data.assets-file}") String assetsFile) {
+                             @Value("${vulnfollowup.data.assets-file}") String assetsFile,
+                             VulnerabilityRepository vulnerabilityRepository,
+                             VulnerabilityImporter vulnerabilityImporter,
+                             @Value("${vulnfollowup.data.vulnerabilities-file}") String vulnerabilitiesFile,
+                             PlatformTransactionManager transactionManager) {
+        this.transaction = new TransactionTemplate(transactionManager);
         this.assetRepository = assetRepository;
         this.assetService = assetService;
         this.objectMapper = objectMapper;
         this.validator = validator;
         this.assetsFile = Path.of(assetsFile);
+        this.vulnerabilityRepository = vulnerabilityRepository;
+        this.vulnerabilityImporter = vulnerabilityImporter;
+        this.vulnerabilitiesFile = Path.of(vulnerabilitiesFile);
     }
 
+    // Orden de CU1: primero los activos y después las vulnerabilidades, que los referencian.
+    // Cada carga va en su propia transacción.
     @Override
-    @Transactional
     public void run(ApplicationArguments args) throws IOException {
+        loadAssets();
+        loadVulnerabilities();
+    }
+
+    // Carga data/vulnerabilities_ok.json (>= 20 registros) con el importador transaccional.
+    // Si el fichero tiene errores, no se guarda ninguno y el backend sigue arrancando.
+    void loadVulnerabilities() throws IOException {
+        if (vulnerabilityRepository.count() > 0) {
+            log.info("CU1: ya hay vulnerabilidades en la BD, no se carga {}", vulnerabilitiesFile);
+            return;
+        }
+        if (!Files.exists(vulnerabilitiesFile)) {
+            log.warn("CU1: no se encuentra el fichero de vulnerabilidades {} (configurable con VULNERABILITIES_FILE)",
+                    vulnerabilitiesFile.toAbsolutePath());
+            return;
+        }
+        List<VulnerabilityImportRecord> records =
+                objectMapper.readValue(vulnerabilitiesFile.toFile(), new TypeReference<>() {
+                });
+        try {
+            int n = vulnerabilityImporter.importAll(records, SYSTEM_USER);
+            log.info("CU1: cargadas {} vulnerabilidades desde {}", n, vulnerabilitiesFile.getFileName());
+        } catch (ImportValidationException e) {
+            log.error("CU1: {} -> {}", vulnerabilitiesFile.getFileName(), e.getMessage());
+        }
+    }
+
+    void loadAssets() throws IOException {
         if (assetRepository.count() > 0) {
             log.info("CU1: ya hay activos en la BD, no se carga {}", assetsFile);
             return;
@@ -84,8 +132,8 @@ public class InitialDataLoader implements ApplicationRunner {
             return;
         }
 
-        // 2) Guardar (si algo falla aquí, @Transactional deshace todo)
-        assets.forEach(a -> assetService.create(a, SYSTEM_USER));
+        // 2) Guardar todos en UNA transacción: si algo falla aquí, se deshace todo (rollback)
+        transaction.executeWithoutResult(status -> assets.forEach(a -> assetService.create(a, SYSTEM_USER)));
         log.info("CU1: cargados {} activos desde {}", assets.size(), assetsFile.getFileName());
     }
 }
