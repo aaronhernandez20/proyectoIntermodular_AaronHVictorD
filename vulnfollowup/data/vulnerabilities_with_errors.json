@@ -1,0 +1,152 @@
+[
+  {
+    "code": "CVE-2021-44228",
+    "title": "Log4Shell: ejecución remota de código en Apache Log4j",
+    "description": "Las funciones JNDI de Apache Log4j2 no protegen frente a servidores LDAP controlados por un atacante, lo que permite ejecutar código remoto a través de los mensajes que se registran en los logs.",
+    "publishedDate": "2021-12-10",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+    "cvssScore": 10.0,
+    "severity": "CRITICAL",
+    "status": "PENDING_REMEDIATION",
+    "assets": [
+      "Servidor de aplicaciones Tomcat",
+      "Servicio de logs centralizados"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-12-05",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"
+    ]
+  },
+  {
+    "code": "CVE-2014-0160",
+    "title": "Heartbleed: lectura de memoria en OpenSSL",
+    "description": "Un fallo en el manejo de los mensajes heartbeat de OpenSSL 1.0.1 permite a un atacante remoto leer memoria del servidor, incluidas claves privadas.",
+    "publishedDate": "2014-04-07",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "cvssScore": 7.5,
+    "severity": "HIGH",
+    "status": "CLOSED",
+    "assets": [
+      "Servidor de correo"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-10-15",
+    "evidence": "OpenSSL actualizado a 1.0.1g y certificados reemitidos - CR-0871",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2014-0160"
+    ]
+  },
+  {
+    "code": "CVE-2017-5638",
+    "title": "Apache Struts: ejecución remota de código por la cabecera Content-Type",
+    "description": "El parser Jakarta Multipart de Apache Struts 2 gestiona mal las excepciones y permite ejecutar comandos mediante una cabecera Content-Type manipulada.",
+    "publishedDate": "2017-03-11",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cvssScore": 9.8,
+    "severity": "CRITICAL",
+    "status": "RESOLVED",
+    "assets": [
+      "Portal web de clientes"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-11-20",
+    "evidence": "Struts actualizado a 2.5.33 - despliegue #431",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2017-5638"
+    ]
+  },
+  {
+    "code": "VFU-0901",
+    "title": "Registro de prueba con error: versión 4.0 con vector 3.1",
+    "description": "El balanceador sigue aceptando TLS 1.0 y suites de cifrado débiles.",
+    "publishedDate": "2026-10-05",
+    "cvssVersion": "4.0",
+    "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "cvssScore": 5.9,
+    "severity": "MEDIUM",
+    "status": "OPEN",
+    "assets": [
+      "API de pagos"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0902",
+    "title": "Registro de prueba con error: severidad LOW con 9.8",
+    "description": "El balanceador sigue aceptando TLS 1.0 y suites de cifrado débiles.",
+    "publishedDate": "2026-10-05",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cvssScore": 9.8,
+    "severity": "LOW",
+    "status": "OPEN",
+    "assets": [
+      "API de pagos"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0903",
+    "title": "Registro de prueba con error: vector mal formado",
+    "description": "El balanceador sigue aceptando TLS 1.0 y suites de cifrado débiles.",
+    "publishedDate": "2026-10-05",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/C:H/I:H/A:H",
+    "cvssScore": 5.9,
+    "severity": "MEDIUM",
+    "status": "OPEN",
+    "assets": [
+      "API de pagos"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0904",
+    "title": "Registro de prueba con error: activo que no existe",
+    "description": "El balanceador sigue aceptando TLS 1.0 y suites de cifrado débiles.",
+    "publishedDate": "2026-10-05",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "cvssScore": 5.9,
+    "severity": "MEDIUM",
+    "status": "OPEN",
+    "assets": [
+      "Servidor que no existe"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0905",
+    "title": "Registro de prueba con error: puntuación fuera de rango",
+    "description": "El balanceador sigue aceptando TLS 1.0 y suites de cifrado débiles.",
+    "publishedDate": "2026-10-05",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "cvssScore": 11.5,
+    "severity": "CRITICAL",
+    "status": "OPEN",
+    "assets": [
+      "API de pagos"
+    ],
+    "references": []
+  },
+  {
+    "code": "CVE-2021-44228",
+    "title": "Registro de prueba con error: código duplicado en el fichero",
+    "description": "El balanceador sigue aceptando TLS 1.0 y suites de cifrado débiles.",
+    "publishedDate": "2026-10-05",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "cvssScore": 5.9,
+    "severity": "MEDIUM",
+    "status": "OPEN",
+    "assets": [
+      "API de pagos"
+    ],
+    "references": []
+  }
+]

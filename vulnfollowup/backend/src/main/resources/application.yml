@@ -41,6 +41,7 @@ vulnfollowup:
   data:
     # CU1: ficheros iniciales. Solo se cargan si la tabla está vacía.
     assets-file: ${ASSETS_FILE:../data/assets.json}
+    vulnerabilities-file: ${VULNERABILITIES_FILE:../data/vulnerabilities_ok.json}
 
 management:
   endpoints:

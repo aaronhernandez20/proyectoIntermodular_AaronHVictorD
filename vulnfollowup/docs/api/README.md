@@ -64,7 +64,7 @@ Roles are always checked in the backend. Hiding buttons in the UI is only for us
 
 ---
 
-## 2. Error format (all endpoints)
+## 2. Error format (all endpoints, including 401 and 403)
 
 ```json
 {
@@ -79,8 +79,8 @@ Roles are always checked in the backend. Hiding buttons in the UI is only for us
 | Code | When |
 |---|---|
 | 400 | Validation error (`fields` contains the details), malformed JSON, invalid enum value, incoherent CVSS |
-| 401 | No token, invalid or expired token, wrong login |
-| 403 | Authenticated but the role is not allowed |
+| 401 | No token, invalid or expired token, wrong login. Body: `"message": "Autenticación requerida o token no válido"` |
+| 403 | Authenticated but the role is not allowed. Body: `"message": "No tiene permisos para realizar esta operación"` |
 | 404 | Resource not found |
 | 409 | Duplicate (e.g. asset name), or **optimistic lock**: someone else modified the record. Reload and retry. |
 
@@ -314,17 +314,21 @@ Users that can be assigned as responsible for a remediation (for the "Assign" dr
 
 ---
 
-## 5. Dashboard 🔜
+## 5. Dashboard ✅
 
-### `GET /api/dashboard/summary`
+### `GET /api/dashboard/summary` (any role)
+Counts are calculated by the database (`GROUP BY`). All keys are always present (0 if there is none), ordered from most to least severe.
 ```json
 {
   "total": 23,
-  "bySeverity": { "CRITICAL": 4, "HIGH": 7, "MEDIUM": 8, "LOW": 3, "NONE": 1 },
-  "byStatus": { "OPEN": 9, "PENDING_REMEDIATION": 6, "RESOLVED": 5, "CLOSED": 3 },
+  "bySeverity": { "CRITICAL": 9, "HIGH": 4, "MEDIUM": 8, "LOW": 2, "NONE": 0 },
+  "byStatus": { "OPEN": 9, "PENDING_REMEDIATION": 8, "RESOLVED": 3, "CLOSED": 3 },
+  "pending": 17,
   "overdue": 2
 }
 ```
+- `pending`: `OPEN` + `PENDING_REMEDIATION` (risk that is still open).
+- `overdue`: pending vulnerabilities whose `targetDate` has already passed.
 
 ---
 

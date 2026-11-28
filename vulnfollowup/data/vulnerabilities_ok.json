@@ -1,0 +1,407 @@
+[
+  {
+    "code": "CVE-2021-44228",
+    "title": "Log4Shell: ejecución remota de código en Apache Log4j",
+    "description": "Las funciones JNDI de Apache Log4j2 no protegen frente a servidores LDAP controlados por un atacante, lo que permite ejecutar código remoto a través de los mensajes que se registran en los logs.",
+    "publishedDate": "2021-12-10",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+    "cvssScore": 10.0,
+    "severity": "CRITICAL",
+    "status": "PENDING_REMEDIATION",
+    "assets": [
+      "Servidor de aplicaciones Tomcat",
+      "Servicio de logs centralizados"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-12-05",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"
+    ]
+  },
+  {
+    "code": "CVE-2014-0160",
+    "title": "Heartbleed: lectura de memoria en OpenSSL",
+    "description": "Un fallo en el manejo de los mensajes heartbeat de OpenSSL 1.0.1 permite a un atacante remoto leer memoria del servidor, incluidas claves privadas.",
+    "publishedDate": "2014-04-07",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "cvssScore": 7.5,
+    "severity": "HIGH",
+    "status": "CLOSED",
+    "assets": [
+      "Servidor de correo"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-10-15",
+    "evidence": "OpenSSL actualizado a 1.0.1g y certificados reemitidos - CR-0871",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2014-0160"
+    ]
+  },
+  {
+    "code": "CVE-2017-5638",
+    "title": "Apache Struts: ejecución remota de código por la cabecera Content-Type",
+    "description": "El parser Jakarta Multipart de Apache Struts 2 gestiona mal las excepciones y permite ejecutar comandos mediante una cabecera Content-Type manipulada.",
+    "publishedDate": "2017-03-11",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cvssScore": 9.8,
+    "severity": "CRITICAL",
+    "status": "RESOLVED",
+    "assets": [
+      "Portal web de clientes"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-11-20",
+    "evidence": "Struts actualizado a 2.5.33 - despliegue #431",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2017-5638"
+    ]
+  },
+  {
+    "code": "CVE-2019-0708",
+    "title": "BlueKeep: ejecución remota de código en Escritorio Remoto",
+    "description": "Un atacante sin autenticar puede ejecutar código en sistemas Windows enviando peticiones manipuladas por RDP.",
+    "publishedDate": "2019-05-16",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cvssScore": 9.8,
+    "severity": "CRITICAL",
+    "status": "OPEN",
+    "assets": [
+      "VPN corporativa"
+    ],
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2019-0708"
+    ]
+  },
+  {
+    "code": "CVE-2021-26855",
+    "title": "ProxyLogon: ejecución remota de código en Microsoft Exchange",
+    "description": "Fallo de Microsoft Exchange Server que permite ejecución remota de código y que CISA incluye en su catálogo de vulnerabilidades explotadas.",
+    "publishedDate": "2021-03-03",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cvssScore": 9.8,
+    "severity": "CRITICAL",
+    "status": "PENDING_REMEDIATION",
+    "assets": [
+      "Servidor de correo"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-11-25",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-26855"
+    ]
+  },
+  {
+    "code": "CVE-2022-22965",
+    "title": "Spring4Shell: ejecución remota de código en Spring Framework",
+    "description": "Las aplicaciones Spring MVC y WebFlux sobre JDK 9+ pueden ser explotadas mediante el enlace de datos (data binding) para ejecutar código.",
+    "publishedDate": "2022-04-01",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cvssScore": 9.8,
+    "severity": "CRITICAL",
+    "status": "PENDING_REMEDIATION",
+    "assets": [
+      "API de pagos",
+      "API de pagos (preproducción)"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-12-10",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-22965"
+    ]
+  },
+  {
+    "code": "CVE-2023-34362",
+    "title": "MOVEit Transfer: inyección SQL sin autenticación",
+    "description": "Una inyección SQL en la aplicación web de Progress MOVEit Transfer permite acceder a su base de datos; fue explotada de forma masiva en 2023.",
+    "publishedDate": "2023-06-02",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cvssScore": 9.8,
+    "severity": "CRITICAL",
+    "status": "OPEN",
+    "assets": [
+      "Base de datos de clientes"
+    ],
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2023-34362"
+    ]
+  },
+  {
+    "code": "CVE-2020-1472",
+    "title": "Zerologon: elevación de privilegios en Netlogon",
+    "description": "Un fallo en el canal seguro de Netlogon permite a un atacante sin autenticar obtener privilegios de administrador del dominio.",
+    "publishedDate": "2020-08-17",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+    "cvssScore": 10.0,
+    "severity": "CRITICAL",
+    "status": "RESOLVED",
+    "assets": [
+      "Servidor de aplicaciones Tomcat"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-11-10",
+    "evidence": "Parche de agosto 2020 aplicado y modo de aplicación forzada activado - CR-0902",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-1472"
+    ]
+  },
+  {
+    "code": "CVE-2021-34527",
+    "title": "PrintNightmare: ejecución remota en la cola de impresión de Windows",
+    "description": "El servicio Print Spooler de Windows realiza operaciones de ficheros privilegiadas de forma incorrecta y permite ejecutar código como SYSTEM.",
+    "publishedDate": "2021-07-02",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+    "cvssScore": 8.8,
+    "severity": "HIGH",
+    "status": "OPEN",
+    "assets": [
+      "Entorno de pruebas QA"
+    ],
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-34527"
+    ]
+  },
+  {
+    "code": "CVE-2024-3094",
+    "title": "Puerta trasera en la librería xz/liblzma",
+    "description": "Se insertó código malicioso en los paquetes de xz a partir de la versión 5.6.0, capaz de modificar liblzma e interceptar datos de cualquier software que la use.",
+    "publishedDate": "2024-03-29",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+    "cvssScore": 10.0,
+    "severity": "CRITICAL",
+    "status": "CLOSED",
+    "assets": [
+      "Servidor de aplicaciones Tomcat"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-09-30",
+    "evidence": "xz degradado a 5.4.6 y verificado con el script de detección - CR-0855",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-3094"
+    ]
+  },
+  {
+    "code": "CVE-2023-44487",
+    "title": "HTTP/2 Rapid Reset: denegación de servicio",
+    "description": "Cancelar peticiones HTTP/2 de forma muy rápida permite agotar los recursos del servidor; se explotó entre agosto y octubre de 2023.",
+    "publishedDate": "2023-10-10",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "cvssScore": 7.5,
+    "severity": "HIGH",
+    "status": "PENDING_REMEDIATION",
+    "assets": [
+      "API de pagos",
+      "Portal web de clientes"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-12-20",
+    "references": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2023-44487"
+    ]
+  },
+  {
+    "code": "VFU-0001",
+    "title": "Credenciales por defecto en el panel de administración de QA",
+    "description": "El entorno de pruebas mantiene el usuario admin con la contraseña de fábrica.",
+    "publishedDate": "2026-10-02",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cvssScore": 9.8,
+    "severity": "CRITICAL",
+    "status": "OPEN",
+    "assets": [
+      "Entorno de pruebas QA"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0002",
+    "title": "TLS 1.0 habilitado en la API de pagos",
+    "description": "El balanceador sigue aceptando TLS 1.0 y suites de cifrado débiles.",
+    "publishedDate": "2026-10-05",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "cvssScore": 5.9,
+    "severity": "MEDIUM",
+    "status": "PENDING_REMEDIATION",
+    "assets": [
+      "API de pagos"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-12-15",
+    "references": []
+  },
+  {
+    "code": "VFU-0003",
+    "title": "XSS reflejado en el buscador del portal de clientes",
+    "description": "El parámetro q del buscador se devuelve sin escapar en la página de resultados.",
+    "publishedDate": "2026-10-08",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+    "cvssScore": 6.1,
+    "severity": "MEDIUM",
+    "status": "RESOLVED",
+    "assets": [
+      "Portal web de clientes"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-11-15",
+    "evidence": "Escapado de salida y cabecera CSP añadidos - PR #214",
+    "references": []
+  },
+  {
+    "code": "VFU-0004",
+    "title": "Token de sesión guardado en texto plano en la app móvil",
+    "description": "La app guarda el token en SharedPreferences sin cifrar.",
+    "publishedDate": "2026-10-12",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+    "cvssScore": 5.5,
+    "severity": "MEDIUM",
+    "status": "OPEN",
+    "assets": [
+      "App móvil banca"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0005",
+    "title": "Backups de la base de datos de clientes sin cifrar",
+    "description": "Las copias nocturnas se guardan sin cifrado en un recurso compartido interno.",
+    "publishedDate": "2026-10-15",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:N/A:N",
+    "cvssScore": 4.4,
+    "severity": "MEDIUM",
+    "status": "PENDING_REMEDIATION",
+    "assets": [
+      "Base de datos de clientes"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-12-31",
+    "references": []
+  },
+  {
+    "code": "VFU-0006",
+    "title": "Cabeceras de seguridad HTTP ausentes en el portal",
+    "description": "Faltan X-Frame-Options y Strict-Transport-Security en las respuestas.",
+    "publishedDate": "2026-10-20",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:N/A:N",
+    "cvssScore": 3.1,
+    "severity": "LOW",
+    "status": "OPEN",
+    "assets": [
+      "Portal web de clientes"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0007",
+    "title": "Listado de directorios activo en el servidor de logs",
+    "description": "El servidor web del sistema de logs muestra el contenido de las carpetas.",
+    "publishedDate": "2026-10-22",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+    "cvssScore": 4.3,
+    "severity": "MEDIUM",
+    "status": "CLOSED",
+    "assets": [
+      "Servicio de logs centralizados"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-11-05",
+    "evidence": "Directiva autoindex desactivada - CR-0915",
+    "references": []
+  },
+  {
+    "code": "VFU-0008",
+    "title": "Versión del servidor expuesta en las respuestas de error",
+    "description": "Las páginas de error muestran la versión exacta de Tomcat.",
+    "publishedDate": "2026-10-25",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+    "cvssScore": 5.3,
+    "severity": "MEDIUM",
+    "status": "OPEN",
+    "assets": [
+      "Servidor de aplicaciones Tomcat"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0009",
+    "title": "Sin límite de intentos en el login de la VPN",
+    "description": "El portal de la VPN no bloquea tras varios intentos fallidos.",
+    "publishedDate": "2026-11-02",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+    "cvssScore": 6.5,
+    "severity": "MEDIUM",
+    "status": "OPEN",
+    "assets": [
+      "VPN corporativa"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0010",
+    "title": "Registro de logs insuficiente en la API de preproducción",
+    "description": "La API no registra los intentos de acceso denegado.",
+    "publishedDate": "2026-11-05",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:N/I:L/A:N",
+    "cvssScore": 2.2,
+    "severity": "LOW",
+    "status": "OPEN",
+    "assets": [
+      "API de pagos (preproducción)"
+    ],
+    "references": []
+  },
+  {
+    "code": "VFU-0011",
+    "title": "Enlace de recuperación de contraseña sin caducidad",
+    "description": "El enlace enviado por email sigue siendo válido indefinidamente.",
+    "publishedDate": "2026-11-10",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N",
+    "cvssScore": 6.8,
+    "severity": "MEDIUM",
+    "status": "PENDING_REMEDIATION",
+    "assets": [
+      "App móvil banca",
+      "Portal web de clientes"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-12-12",
+    "references": []
+  },
+  {
+    "code": "VFU-0012",
+    "title": "Inyección SQL en el endpoint de conciliación de la API de pagos",
+    "description": "El parámetro fecha del endpoint /reconcile se concatena en la consulta SQL.",
+    "publishedDate": "2026-11-18",
+    "cvssVersion": "3.1",
+    "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+    "cvssScore": 8.1,
+    "severity": "HIGH",
+    "status": "PENDING_REMEDIATION",
+    "assets": [
+      "API de pagos"
+    ],
+    "assignee": "analyst",
+    "targetDate": "2026-12-02",
+    "references": []
+  }
+]

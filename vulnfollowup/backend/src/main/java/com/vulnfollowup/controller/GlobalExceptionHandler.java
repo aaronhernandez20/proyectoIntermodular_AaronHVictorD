@@ -1,6 +1,7 @@
 package com.vulnfollowup.controller;
 
 import com.vulnfollowup.cvss.CvssValidationException;
+import com.vulnfollowup.importer.ImportValidationException;
 import org.slf4j.Logger;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.slf4j.LoggerFactory;
@@ -54,6 +55,15 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, Object> cvss(CvssValidationException ex) {
         Map<String, Object> body = body(HttpStatus.BAD_REQUEST, "Valoración CVSS incoherente");
+        body.put("errors", ex.getErrors());
+        return body;
+    }
+
+    // Fichero de importación con errores: no se ha guardado nada -> 400 con todos los errores
+    @ExceptionHandler(ImportValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, Object> importErrors(ImportValidationException ex) {
+        Map<String, Object> body = body(HttpStatus.BAD_REQUEST, ex.getMessage());
         body.put("errors", ex.getErrors());
         return body;
     }
